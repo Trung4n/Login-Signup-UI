@@ -6,34 +6,69 @@ body {
   color: lightgray;
 }
 
-header {
+/* header {
   width: 100%;
-  display: grid;
-  grid-template-columns: 50px 1fr 50px;
-  grid-template-rows: 50px;
-  justify-content: center;
-  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   position: relative;
+  padding: 0;
   backdrop-filter: blur(5px);
-  background-color: rgba(82, 82, 82, 0.05);
   z-index: 100;
   user-select: none;
 }
 header .logo {
-  padding: 2rem;
   font-weight: bold;
 }
 header .menu {
   list-style: none;
   display: flex;
   justify-content: center;
-  gap: 40px;
   font-weight: 500;
-}
-
+} */
+/* 
 header .menu li:hover {
   cursor: pointer;
   color: white;
+} */
+header {
+  max-width: 100%;
+  min-height: 50px;
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+header .logo {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: bold;
+  margin-left: auto -50px;
+  font-size: 16px;
+  color: white;
+  text-decoration: none;
+}
+header .logo:hover {
+  color: white;
+  text-decoration: none;
+}
+
+header img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+header .menu {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  font-weight: 500;
 }
 /* css slider */
 .slider {
