@@ -308,55 +308,6 @@ form i {
   z-index: -1;
 }
 
-/* Mobile view
-@media (max-width: 768px) {
-  header {
-    min-height: 30px;
-  }
-  header .logo {
-    gap: 5px;
-    font-size: 15px;
-  }
-  header img {
-    width: 25px;
-    height: 25px;
-  }
-  header .menu {
-    gap: 10px;
-    font-weight: 500;
-    font-size: 13px;
-  }
-  .slider {
-    margin-top: -30px;
-  }
-  .slider .list .item .content {
-    left: 10%;
-    top: 5%;
-  }
-  .slider .list .item .content h2 {
-    font-size: 40px;
-    margin: 0;
-  }
-  .login {
-    top: 35%;
-    left: 5%;
-    max-width: 250px;
-    min-height: 350px;
-    max-height: 400px;
-  }
-  .login h1 {
-    margin-top: -5px;
-    margin-bottom: 0px;
-    font-weight: bold;
-    text-align: center;
-    font-size: 50px;
-  }
-  .form-group {
-    padding: 0rem;
-    margin-bottom: 1rem;
-  }
-} */
-
 @media (max-width: 450px) {
   header {
     min-height: 30px;
