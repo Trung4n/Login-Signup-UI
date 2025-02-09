@@ -1,18 +1,3 @@
-// Slider background
-let items = document.querySelectorAll(".slider .list .item");
-let countItem = items.length;
-let itemActive = 0;
-
-function showSlider() {
-  itemActive = (itemActive + 1) % countItem;
-  let itemActiveOld = document.querySelector(".slider .list .item.active");
-  itemActiveOld.classList.remove("active");
-
-  items[itemActive].classList.add("active");
-}
-// Auto slider
-setInterval(showSlider, 8000);
-
 // Form login
 // error message
 const passwordInput = document.getElementById("password");

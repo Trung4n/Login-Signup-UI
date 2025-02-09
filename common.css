@@ -1,0 +1,155 @@
+body {
+  font-family: Poppins;
+  margin: 0;
+  color: lightgray;
+  background-color: black;
+}
+
+header {
+  max-width: 100%;
+  min-height: 50px;
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+header .logo {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: bold;
+  margin-left: auto -50px;
+  font-size: 16px;
+  color: white;
+  text-decoration: none;
+}
+header .logo:hover {
+  color: white;
+  text-decoration: none;
+}
+
+header img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+header .menu {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  font-weight: 500;
+}
+/* css slider */
+.slider {
+  height: 100vh;
+  margin-top: -50px;
+  position: relative;
+}
+.slider .list .item {
+  position: absolute;
+  inset: 0 0 0 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: 0.5s;
+}
+.slider .list .item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: fixed;
+}
+.slider .list .item::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.9) 5%, transparent);
+}
+.slider .list .item .content {
+  position: absolute;
+  left: 10%;
+  top: 25%;
+  width: 500px;
+  max-width: 80%;
+  z-index: 1;
+}
+.slider .list .item .content p:nth-child(1) {
+  text-transform: uppercase;
+  letter-spacing: 10px;
+}
+.slider .list .item .content h2 {
+  font-size: 70px;
+  margin: 0;
+}
+.slider .list .item.active {
+  opacity: 1;
+  z-index: 10;
+}
+@keyframes showContent {
+  to {
+    transform: translateY(0);
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+.slider .list .item.active p:nth-child(1),
+.slider .list .item.active h2,
+.slider .list .item.active p:nth-child(3) {
+  transform: translateY(30px);
+  filter: blur(20px);
+  opacity: 0;
+  animation: showContent 0.5s 0.7s ease-in-out 1 forwards;
+}
+.slider .list .item.active h2 {
+  animation-delay: 1s;
+}
+.slider .list .item.active p:nth-child(3) {
+  animation-duration: 1.3s;
+}
+
+@media (max-width: 450px) {
+  header {
+    min-height: 30px;
+  }
+  header .logo {
+    gap: 5px;
+    font-size: 15px;
+  }
+  header img {
+    width: 25px;
+    height: 25px;
+  }
+  header .menu {
+    gap: 10px;
+    font-weight: 500;
+    font-size: 13px;
+  }
+  .slider {
+    margin-top: -30px;
+  }
+  .slider .list .item .content {
+    left: 10%;
+    top: 7%;
+  }
+  .slider .list .item .content h2 {
+    font-size: 40px;
+    margin: 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .slider .list .item .content {
+    left: 10%;
+    top: 5%;
+  }
+  .slider .list .item .content h2 {
+    font-size: 30px;
+  }
+}
