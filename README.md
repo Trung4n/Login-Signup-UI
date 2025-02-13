@@ -9,4 +9,4 @@ A simple login page built with HTML, CSS, and JavaScript.
 - Animations for background, button transitions, etc.
 
 ## Demo:
-Check out the live demo [here](https://Trung4n.github.io/Login-Signup-UI/login.html).
+Check out the live demo [login](https://Trung4n.github.io/Login-Signup-UI/login.html) and [signup](https://Trung4n.github.io/Login-Signup-UI/signup.html).
