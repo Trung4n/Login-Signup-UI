@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 body {
   font-family: Poppins;
   margin: 0;
@@ -7,7 +9,7 @@ body {
 
 header {
   max-width: 100%;
-  min-height: 50px;
+  height: 50px;
   display: flex;
   flex-grow: 1;
   justify-content: space-around;
@@ -76,8 +78,7 @@ header .menu {
   position: absolute;
   left: 10%;
   top: 25%;
-  width: 500px;
-  max-width: 80%;
+  width: 550px;
   z-index: 1;
 }
 .slider .list .item .content p:nth-child(1) {
@@ -114,9 +115,19 @@ header .menu {
   animation-duration: 1.3s;
 }
 
+a {
+  text-decoration: none;
+  color: #0066d3;
+}
+
+a:hover {
+  color: #007bff;
+  text-decoration: underline;
+}
+
 @media (max-width: 450px) {
   header {
-    min-height: 30px;
+    height: 30px;
   }
   header .logo {
     gap: 5px;
@@ -128,28 +139,32 @@ header .menu {
   }
   header .menu {
     gap: 10px;
-    font-weight: 500;
     font-size: 13px;
   }
   .slider {
     margin-top: -30px;
   }
   .slider .list .item .content {
-    left: 10%;
-    top: 7%;
+    left: 7%;
+    top: 4%;
+    width: 350px;
   }
+
   .slider .list .item .content h2 {
     font-size: 40px;
     margin: 0;
   }
 }
 
-@media (max-width: 380px) {
-  .slider .list .item .content {
-    left: 10%;
-    top: 5%;
-  }
+@media (max-width: 400px) {
   .slider .list .item .content h2 {
     font-size: 30px;
+    margin: -10px 0;
+  }
+}
+@media (max-width: 350px) {
+  .slider .list .item .content {
+    left: 5%;
+    width: 300px;
   }
 }

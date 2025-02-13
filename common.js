@@ -1,3 +1,4 @@
+// Description: Common functions for all pages
 function loadComponent(url, elementId, callback) {
   fetch(url)
     .then((response) => response.text())

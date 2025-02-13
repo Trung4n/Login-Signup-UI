@@ -17,12 +17,12 @@
   <body>
     <div id="header-container"></div>
     <div id="slider-container"></div>
-    <div class="login">
+    <div class="form-container" id="login">
       <h1>Login</h1>
-      <div class="signup">
-        Don't have an account? <a href="#sign-up">Sign up</a>
+      <div class="auth-link">
+        <p>Don't have an account? <a href="signup.html">Sign up</a></p>
       </div>
-      <form>
+      <form id="loginForm">
         <div class="form-group">
           <i class="fa-solid fa-user" id="ic"></i>
           <input
@@ -43,22 +43,27 @@
             placeholder=""
             required
           />
-          <i class="fa-sharp fa-solid fa-eye" id="toggleIcon"></i>
+          <i
+            class="fa-sharp fa-solid fa-eye"
+            id="toggleIcon"
+            data-target="password"
+          ></i>
           <label for="password">Password</label>
         </div>
-        <div class="errorContent">Wrong password or user doesn't exist</div>
-        <div class="remember">
-          <div>
-            <i class="fa-regular fa-square" id="rememberMe"></i>
-            <span>Remember Me</span>
-          </div>
-          <a href="#" class="forgot-password">Forgot Password?</a>
+        <span class="error" id="errorValid"></span>
+        <div class="options">
+          <p>
+            <input type="checkbox" class="checkBox" id="Remember" /> Remember me
+          </p>
+          <a href="forgot-password.html" class="forgot-password"
+            >Forgot Password?</a
+          >
         </div>
 
-        <button type="submit" class="loginButton">Login</button>
+        <button type="submit">Login</button>
       </form>
     </div>
     <script src="common.js"></script>
-    <script src="login.js"></script>
+    <script src="auth.js"></script>
   </body>
 </html>
