@@ -1,90 +1,43 @@
 // Description: This file contains the code for login and signup page.
 
-const passwordInput = document.getElementById("password");
-const usernameInput = document.getElementById("username");
-const emailInput = document.getElementById("email");
-const confirmPasswordInput = document.getElementById("confirmPassword");
+const authFormComponent = {
+  loginForm: document.getElementById("loginForm"),
+  signupForm: document.getElementById("signupForm"),
 
-const loginForm = document.getElementById("loginForm");
-if (loginForm) {
-  loginForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+  emailInput: document.getElementById("email"),
+  usernameInput: document.getElementById("username"),
+  passwordInput: document.getElementById("password"),
+  confirmPasswordInput: document.getElementById("confirmPassword"),
+  remember: document.getElementById("Remember"),
+  term: document.getElementById("term"),
+};
 
-    let username = usernameInput.value;
-    let password = passwordInput.value;
-    if (!authenticateUser(username, password)) {
-      let errorMsg = document.getElementById("errorValid");
-      presentError(errorMsg, "", usernameInput);
-      presentError(errorMsg, "Invalid user or password!", passwordInput);
-    } else {
-      alert("Login Successfully!");
-      this.reset();
+const validateFunction = {
+  email: (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email) || email === "" ? "" : "Invalid email format!";
+  },
+  username: (username) => {
+    const regex = /^[a-zA-Z0-9_]+$/;
+    if (username === "") {
+      return "";
+    } else if (!regex.test(username)) {
+      return "Username can only contain letters, numbers and _";
+    } else if (username.length < 6 || username.length > 20) {
+      return "Username must be between 6 and 20 characters!";
     }
-  });
-}
-
-const signupForm = document.getElementById("signupForm");
-if (signupForm) {
-  signupForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-    const terms = document.getElementById("term");
-    const remember = document.getElementById("Remember");
-    let errorMsg = document.getElementById("errorTerm");
-    if (!terms.checked) {
-      presentError(errorMsg, "Please accept the terms!");
-    } else {
-      // Replace this code with your database authentication
-      alert("Signup Successfully!");
-      this.reset();
-    }
-    if (remember.checked) {
-      remember();
-    }
-    terms.addEventListener("change", () => {
-      hideError(errorMsg);
-    });
-  });
-}
-
-function remember() {
-  // Replace this code with your database authentication
-}
-function authenticateUser(username, password) {
-  // Replace this code with your database authentication
-  return username === "admin" && password === "123";
-}
-
-function isValidEmail(email) {
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return regex.test(email);
-}
-
-function checkUsername(username) {
-  const regex = /^[a-zA-Z0-9_]+$/;
-  if (!regex.test(username)) {
-    return "Username can only contain letters, numbers and _";
-  } else if (username.length < 6 || username.length > 20) {
-    return "Username must be between 6 and 20 characters!";
-  } else {
-    return "";
-  }
-}
-
-function checkPassword(password) {
-  if (password.length < 6) {
-    return "Password must be at least 6 characters!";
-  } else {
-    return "";
-  }
-}
-
-function checkConfirmPassword(password, confirmPassword) {
-  if (confirmPassword === password) {
-    return "";
-  } else {
-    return "Password does not match!";
-  }
-}
+  },
+  password: (password) => {
+    return password.length > 6 || password === ""
+      ? ""
+      : "Password must be at least 6 characters!";
+  },
+  confirmPassword: (password, confirmPassword) => {
+    password === confirmPassword || confirmPassword === ""
+      ? ""
+      : "Password does not match!";
+  },
+};
 
 function presentError(errorMsg, message, input) {
   if (errorMsg) {
@@ -108,69 +61,110 @@ function hideError(errorMsg, input) {
     input.closest(".form-group").style.boxShadow = "";
   }
 }
+
 function validateForm(input, idError) {
   let errorMsg = document.getElementById(idError);
   if (!input || !errorMsg) return;
-  input.addEventListener("input", () => {
-    hideError(errorMsg, input);
+
+  input.addEventListener("input", () => hideError(errorMsg, input));
+
+  input.addEventListener("blur", () => {
+    const value = input.value;
+    let message = "";
+
+    switch (input.id) {
+      case "email":
+        message = validateFunction.email(value);
+        break;
+      case "username":
+        message = validateFunction.username(value);
+        break;
+      case "password":
+        message = validateFunction.password(value);
+        break;
+      case "confirmPassword":
+        message = validateFunction.confirmPassword(
+          authFormComponent.passwordInput.value,
+          value
+        );
+        break;
+    }
+    console.log(message);
+    if (message) {
+      presentError(errorMsg, message, input);
+    } else {
+      hideError(errorMsg, input);
+    }
   });
-  if (input.id === "email") {
-    input.addEventListener("blur", () => {
-      let email = input.value;
-      if (email === "" || isValidEmail(email)) {
-        hideError(errorMsg, input);
-      } else {
-        presentError(errorMsg, "Invalid email format!", input);
-      }
-    });
-  } else if (input.id === "username") {
-    input.addEventListener("blur", () => {
-      let username = input.value;
-      let message = checkUsername(username);
-      if (message === "" || username === "") {
-        hideError(errorMsg, input);
-      } else {
-        presentError(errorMsg, message, input);
-      }
-    });
-  } else if (input.id === "password") {
-    input.addEventListener("blur", () => {
-      let password = input.value;
-      let message = checkPassword(password);
-      if (message === "" || password === "") {
-        hideError(errorMsg, input);
-      } else {
-        presentError(errorMsg, message, input);
-      }
-    });
-  } else if (input.id === "confirmPassword") {
-    input.addEventListener("blur", () => {
-      let password = passwordInput.value;
-      let confirmPassword = input.value;
-      let message = checkConfirmPassword(password, confirmPassword);
-      if (message === "" || confirmPassword === "") {
-        hideError(errorMsg, input);
-      } else {
-        presentError(errorMsg, "Password does not match!", input);
-      }
-    });
-  }
 }
 
-usernameInput.addEventListener("click", () => {
-  hideError(document.getElementById("errorValid"), usernameInput);
-  hideError(document.getElementById("errorValid"), passwordInput);
-});
+const passwordInput = document.getElementById("password");
+const usernameInput = document.getElementById("username");
+const emailInput = document.getElementById("email");
+const confirmPasswordInput = document.getElementById("confirmPassword");
 
-passwordInput.addEventListener("input", () => {
-  hideError(document.getElementById("errorValid"), usernameInput);
-  hideError(document.getElementById("errorValid"), passwordInput);
-});
+// const loginForm = document.getElementById("loginForm");
+if (authFormComponent.loginForm) {
+  authFormComponent.loginForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    const { usernameInput, passwordInput, remember } = authFormComponent;
 
-validateForm(emailInput, "errorEmail");
-validateForm(usernameInput, "errorUsername");
-validateForm(passwordInput, "errorPassword");
-validateForm(confirmPasswordInput, "errorMsg");
+    let username = usernameInput.value;
+    let password = passwordInput.value;
+    if (!authenticateUser(username, password)) {
+      let errorMsg = document.getElementById("errorValid");
+      presentError(errorMsg, "", usernameInput);
+      presentError(errorMsg, "Invalid user or password!", passwordInput);
+    } else {
+      alert("Login Successfully!");
+      this.reset();
+    }
+  });
+}
+
+if (authFormComponent.signupForm) {
+  authFormComponent.signupForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    const {
+      emailInput,
+      usernameInput,
+      passwordInput,
+      confirmPasswordInput,
+      remember,
+      term,
+    } = authFormComponent;
+    let errorMsg = document.getElementById("errorTerm");
+    if (!term.checked) {
+      presentError(errorMsg, "Please accept the terms!");
+    } else {
+      // Replace this code with your database authentication
+      alert("Signup Successfully!");
+      this.reset();
+    }
+    // if (remember.checked) {
+    //   remember();
+    // }
+    term.addEventListener("change", () => hideError(errorMsg));
+  });
+}
+
+function authenticateUser(username, password) {
+  // Replace this code with your database authentication
+  return username === "admin" && password === "123";
+}
+
+[authFormComponent.usernameInput, authFormComponent.passwordInput].forEach(
+  (input) => {
+    input.addEventListener("click", () => {
+      hideError(authFormComponent.errorValid, input);
+    });
+  }
+);
+
+validateForm(authFormComponent.emailInput, "errorEmail");
+validateForm(authFormComponent.usernameInput, "errorUsername");
+validateForm(authFormComponent.passwordInput, "errorPassword");
+validateForm(authFormComponent.confirmPasswordInput, "errorMsg");
 
 const showPassword = document.querySelectorAll("#toggleIcon");
 
